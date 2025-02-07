@@ -2,14 +2,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class Homework16 extends Baseclass {
+public class Homework16 extends BaseTest {
     @Test
-    Public void registrationNavigation(){
-        Chromeoptions options = new Chromeoptions();
+    public void registrationNavigation(){
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("remote allow");
 
         WebDriver driver = new ChromeDriver(options);
@@ -17,13 +19,14 @@ public class Homework16 extends Baseclass {
 
         String url = "https://qa.koel.app/";
         driver.get(url);
-        WebElement registrationLink = driver.findElement(By.cssSelector("[href='registration']");
-        registration.click();
+        WebElement registrationLink = driver.findElement(By.cssSelector("[href='registration']"));
+        registrationLink.click();
 
         String registrationurl = "https://qa.koal.app/registration";
-        Assert.arrertEquals(driver.getCurrentUrl(),registrationurl);
+        Assert.assertEquals(driver.getCurrentUrl(),registrationurl);
 
         driver.quit();
 
 
+    }
 }
