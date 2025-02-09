@@ -74,6 +74,25 @@ public class BaseTest {
         return strMsg;
     }
 
+    public void clickPlay() {
+
+        WebElement playButton = driver.findElement(By.xpath("//span[@data-testid='play-btn']"));
+
+        playButton.click();
+
+    }
+
+    public boolean isSongPlaying(){
+        WebElement soundbar = driver.findElement(By.xpath("//div[@data-testid='sound-bar-play']"));
+        return soundbar.isDisplayed();
+
+    }
+
+    public void playNextButton(){
+        WebElement playNextButton = driver.findElement(By.xpath("//i[@data-testid='play-next-btn']"));
+        playNextButton.click();
+    }
+
 
 
 }
