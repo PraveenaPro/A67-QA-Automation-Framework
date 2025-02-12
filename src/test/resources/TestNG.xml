@@ -8,6 +8,7 @@
             <class name="LoginTests"/>
             <class name="BaseTest"/>
             <class name="Homework18"/>
+            <class name="homework19"/>
             <methods>
                 <include name="playSong"/>
             </methods>
