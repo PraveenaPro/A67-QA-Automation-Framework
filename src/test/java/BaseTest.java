@@ -70,8 +70,8 @@ public class BaseTest {
     }
 
     public String getAddToPlayListSuccessMsg(){
-        String strMsg = "Added 1 song into myplaylist";
-        return strMsg;
+        WebElement notification = driver.findElement(By.cssSelector("div.success.show"));
+        return notification.getText();
     }
 
 
