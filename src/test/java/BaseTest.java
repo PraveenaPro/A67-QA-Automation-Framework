@@ -115,7 +115,6 @@ public class BaseTest {
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
         WebElement deletePlaylist= wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn-delete-playlist")));
         deletePlaylist.click();
-        Thread.sleep(2000);
     }
     public String getDeletedPlaylistMsg(){
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
