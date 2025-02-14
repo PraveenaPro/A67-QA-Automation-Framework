@@ -6,17 +6,25 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import java.time.Duration;
 
 public class BaseTest {
+    WebDriver driver;
 
-    WebDriver driver = new ChromeDriver();
 
     @BeforeSuite
     static void setupClass() {
         WebDriverManager.chromedriver().setup();
+    }
+    @BeforeMethod
+    public void setupDiver(){
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     public void searchSong(String strname) throws InterruptedException{
