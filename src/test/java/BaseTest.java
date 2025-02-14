@@ -111,9 +111,9 @@ public class BaseTest {
         playNextButton.click();
     }
 
-    public void clickDeletePlaylistBtn() throws InterruptedException{
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(30));
-        WebElement deletePlaylist= wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn-delete-playlist")));
+    public void clickDeletePlaylistBtn() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement deletePlaylist = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".btn-delete-playlist")));
         deletePlaylist.click();
     }
     public String getDeletedPlaylistMsg(){
