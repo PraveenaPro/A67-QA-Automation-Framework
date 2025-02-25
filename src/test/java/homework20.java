@@ -7,16 +7,24 @@ import org.testng.annotations.Test;
 
 @Test
 
-    public class homework20 extends BaseTest
+    public class homework20
     {
         String expectedPlaylistDeletedMessage = "Deleted playlist \"Test1.\"";
         public void deletePlaylist() throws InterruptedException{
-            provideEmail("praveena.chitramanalan@testpro.io");
-            providePassword("TestPro@0315");
-            clickPlay();
-            openPlaylist();
-            clickDeletePlaylistBtn();
-            Assert.assertEquals(getDeletedPlaylistMsg(), expectedPlaylistDeletedMessage);
+
+            BaseTest baseTest = new BaseTest();
+            baseTest.provideEmail("praveena.chitramanalan@testpro.io");
+            baseTest.providePassword("TestPro@0315");
+            //provideEmail("praveena.chitramanalan@testpro.io");
+            //providePassword("TestPro@0315");
+            baseTest.clickPlay();
+            //clickPlay();
+            baseTest.openPlaylist();
+            //openPlaylist();
+            baseTest.clickDeletePlaylistBtn();
+            // clickDeletePlaylistBtn();
+            Assert.assertEquals(baseTest.getDeletedPlaylistMsg(), expectedPlaylistDeletedMessage);
+            //Assert.assertEquals(getDeletedPlaylistMsg(), expectedPlaylistDeletedMessage);
 
         }
 

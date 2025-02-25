@@ -1,7 +1,8 @@
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Homework17 extends BaseTest{
+public class Homework17 {
     @Test
     public void addSongToPlayList() throws InterruptedException{
 
@@ -9,20 +10,22 @@ public class Homework17 extends BaseTest{
         String strSongName = "Pluto";
         String strEmail = "praveena.chitramanalan@testpro.io";
         String strPassword = "TestPro@0315";
+        WebDriver driver = null;
+        BaseTest baseTest = new BaseTest();
 
-        navigateToPage();
-        provideEmail(strEmail);
-        providePassword(strPassword);
-        clickSubmit();
+        baseTest.navigateToPage();
+        baseTest.provideEmail(strEmail);
+        baseTest.providePassword(strPassword);
+        baseTest.clickSubmit();
         Thread.sleep(2000);
 
         //searchSong(strSongName);
-        clickViewAllBtn();
-        selectFirstSongResult();
-        clickAddToBtn();
-        choosePlayList();
+        baseTest.clickViewAllBtn();
+        baseTest.selectFirstSongResult();
+        baseTest.clickAddToBtn();
+        baseTest.choosePlayList();
 
-        Assert.assertEquals(getAddToPlayListSuccessMsg(),strexpectedSongAddedMessage);
+        Assert.assertEquals(baseTest.getAddToPlayListSuccessMsg(),strexpectedSongAddedMessage);
 
 
 
