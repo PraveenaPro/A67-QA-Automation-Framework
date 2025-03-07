@@ -1,3 +1,4 @@
+import POM.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -12,18 +13,18 @@ import org.testng.annotations.Test;
         String expectedPlaylistDeletedMessage = "Deleted playlist \"Test1.\"";
         public void deletePlaylist() throws InterruptedException{
 
-            BaseTest baseTest = new BaseTest();
-            baseTest.provideEmail("praveena.chitramanalan@testpro.io");
-            baseTest.providePassword("TestPro@0315");
+            BasePage basePage = new BasePage();
+            basePage.provideEmail("praveena.chitramanalan@testpro.io");
+            basePage.providePassword("TestPro@0315");
             //provideEmail("praveena.chitramanalan@testpro.io");
             //providePassword("TestPro@0315");
-            baseTest.clickPlay();
+            basePage.clickPlay();
             //clickPlay();
-            baseTest.openPlaylist();
+            basePage.openPlaylist();
             //openPlaylist();
-            baseTest.clickDeletePlaylistBtn();
+            basePage.clickDeletePlaylistBtn();
             // clickDeletePlaylistBtn();
-            Assert.assertEquals(baseTest.getDeletedPlaylistMsg(), expectedPlaylistDeletedMessage);
+            Assert.assertEquals(basePage.getDeletedPlaylistMsg(), expectedPlaylistDeletedMessage);
             //Assert.assertEquals(getDeletedPlaylistMsg(), expectedPlaylistDeletedMessage);
 
         }

@@ -1,3 +1,4 @@
+import POM.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -11,21 +12,21 @@ public class Homework17 {
         String strEmail = "praveena.chitramanalan@testpro.io";
         String strPassword = "TestPro@0315";
         WebDriver driver = null;
-        BaseTest baseTest = new BaseTest();
+        BasePage basePage = new BasePage();
 
-        baseTest.navigateToPage();
-        baseTest.provideEmail(strEmail);
-        baseTest.providePassword(strPassword);
-        baseTest.clickSubmit();
+        basePage.navigateToPage();
+        basePage.provideEmail(strEmail);
+        basePage.providePassword(strPassword);
+        basePage.clickSubmit();
         Thread.sleep(2000);
 
         //searchSong(strSongName);
-        baseTest.clickViewAllBtn();
-        baseTest.selectFirstSongResult();
-        baseTest.clickAddToBtn();
-        baseTest.choosePlayList();
+        basePage.clickViewAllBtn();
+        basePage.selectFirstSongResult();
+        basePage.clickAddToBtn();
+        basePage.choosePlayList();
 
-        Assert.assertEquals(baseTest.getAddToPlayListSuccessMsg(),strexpectedSongAddedMessage);
+        Assert.assertEquals(basePage.getAddToPlayListSuccessMsg(),strexpectedSongAddedMessage);
 
 
 
