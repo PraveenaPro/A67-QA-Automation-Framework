@@ -1,6 +1,8 @@
 import POM.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -13,7 +15,9 @@ import org.testng.annotations.Test;
         String expectedPlaylistDeletedMessage = "Deleted playlist \"Test1.\"";
         public void deletePlaylist() throws InterruptedException{
 
-            BasePage basePage = new BasePage();
+            WebDriver driver = new ChromeDriver();
+            BasePage basePage = new BasePage(driver);
+
             basePage.provideEmail("praveena.chitramanalan@testpro.io");
             basePage.providePassword("TestPro@0315");
             //provideEmail("praveena.chitramanalan@testpro.io");

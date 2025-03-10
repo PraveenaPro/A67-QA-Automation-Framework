@@ -1,5 +1,6 @@
 import POM.BasePage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,8 +12,8 @@ public class Homework17 {
         String strSongName = "Pluto";
         String strEmail = "praveena.chitramanalan@testpro.io";
         String strPassword = "TestPro@0315";
-        WebDriver driver = null;
-        BasePage basePage = new BasePage();
+        WebDriver driver = new ChromeDriver();
+        BasePage basePage = new BasePage(driver);
 
         basePage.navigateToPage();
         basePage.provideEmail(strEmail);
