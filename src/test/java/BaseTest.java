@@ -4,19 +4,26 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
+import java.net.URI;
+import java.net.MalformedURLException;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     WebDriver driver;
+    WebDriverWait wait;
 
     public BaseTest(){
+
         super();
     }
 
@@ -24,15 +31,48 @@ public class BaseTest {
     static void setupClass() {
         WebDriverManager.chromedriver().setup();
     }
+
     @BeforeMethod
-    public void setupDiver(){
+    public void setupDiver()throws MalformedURLException {
 
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
+        //ChromeOptions options = new ChromeOptions();
+        //options.addArguments("--remote-allow-origins=*");
+        //driver = new ChromeDriver(options);
+
+        driver = getBrowserDriver(System.getProperty("browser"));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        String url = "https://qa.koel.app/";
+        driver.manage().window().maximize();
+        driver.get(url);
 
 
+    }
+
+    public WebDriver getBrowserDriver(String browser) throws MalformedURLException {
+        String gridUrl = "http://192.168.0.159:4444";
+        DesiredCapabilities desiredCap = new DesiredCapabilities();
+        switch (browser) {
+            case "chrome":
+                WebDriverManager.chromedriver().setup();
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--remote-allow-origins=*");
+                options.addArguments("--disable-notifications");
+                driver = new ChromeDriver(options);
+                return driver;
+            case "grid-chrome":
+                desiredCap.setBrowserName("chrome");
+                driver = new RemoteWebDriver(URI.create(gridUrl).toURL(), desiredCap);
+                return driver;
+            case "grid-firefox":
+                desiredCap.setCapability("browserName", "firefox");
+                driver = new RemoteWebDriver(URI.create(gridUrl).toURL(), desiredCap);
+                return driver;
+            default:
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+                return driver;
+        }
     }
 
     public void clickViewAllBtn() throws InterruptedException{
