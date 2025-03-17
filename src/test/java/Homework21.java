@@ -10,22 +10,23 @@ import java.time.Duration;
 
 @Test
 
-public class Homework21 extends BaseTest{
+public class Homework21 {
     public String newPlaylistName = "Sample Edited Playlist";
+    public BaseTest baseTest = new BaseTest();
     public void doubleClickPlaylist() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(baseTest.getDriver(), Duration.ofSeconds(30));
         WebElement playlistElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".playlist:nth-child(3)")));
-        new Actions(driver).doubleClick(playlistElement).perform();
+        new Actions(baseTest.getDriver()).doubleClick(playlistElement).perform();
     }
     public void enterNewPlaylistName(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(baseTest.getDriver(), Duration.ofSeconds(30));
         WebElement playlistInputField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[name='name']")));
         playlistInputField.sendKeys(Keys.chord(Keys.CONTROL,"A",Keys.BACK_SPACE));
         playlistInputField.sendKeys(newPlaylistName);
         playlistInputField.sendKeys(Keys.ENTER);
     }
     public String getRenamePlaylistSuccessMsg(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(baseTest.getDriver(), Duration.ofSeconds(30));
         WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.success.show")));
         return notification.getText();
     }

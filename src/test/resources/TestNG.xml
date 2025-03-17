@@ -3,13 +3,10 @@
 
 <suite name="TestNG">
 
-    <test name="Example Test" preserve-order="false">
+    <test name="Example Test" preserve-order="false" thread-count="2" parallel="methods">
         <classes>
             <class name="LoginTests"/>
             <class name="BaseTest"/>
-            <class name="homework20"/>
-            <class name="Homework17"/>
-            <class name="homework20"/>
             <class name="Homework21"/>
         </classes>
     </test>

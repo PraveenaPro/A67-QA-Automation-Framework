@@ -9,18 +9,22 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import java.net.URI;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
-    WebDriver driver;
+    protected WebDriver driver = null;
     WebDriverWait wait;
+    private static final ThreadLocal<WebDriver> threadDriver = new ThreadLocal<>();
 
     public BaseTest(){
 
@@ -35,17 +39,50 @@ public class BaseTest {
     @BeforeMethod
     public void setupDiver()throws MalformedURLException {
 
-        //ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--remote-allow-origins=*");
-        //driver = new ChromeDriver(options);
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
 
-        driver = getBrowserDriver(System.getProperty("browser"));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        //driver = getBrowserDriver(System.getProperty("browser"));
+        threadDriver.set(getBrowserDriver(System.getProperty("browser")));
+        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        threadDriver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String url = "https://qa.koel.app/";
-        driver.manage().window().maximize();
-        driver.get(url);
+        //driver.manage().window().maximize();
+        threadDriver.get().manage().window().maximize();
+        //driver.get(url);
+        threadDriver.get().get(url);
+    }
 
+    public WebDriver getDriver(){
+        return threadDriver.get();
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void closeDriver(){
+        getDriver().quit();
+    }
+
+
+    public WebDriver getLambdaDriver() throws MalformedURLException{
+        String userName= "praveena.jasmine";
+        String authKey= "LT_CA9t44JXLBr0trcaqpegI25XIak1cul3djEzNG0d5XYog34";
+        String hubURL= "https://hub.lamdatest.com/wd/hub";
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName","Chrome");
+        capabilities.setCapability("browserVersion","130.0");
+        HashMap<String, Object> ltOptions = new HashMap<>();
+        ltOptions.put("username",userName);
+        ltOptions.put("accessKey",authKey);
+        ltOptions.put("project", "Koel");
+        ltOptions.put("w3c", true);
+        ltOptions.put("plugin", "java-testNG");
+        ltOptions.put("platformName", "Windows 10");
+        capabilities.setCapability("LT:Options", ltOptions);
+
+        return new RemoteWebDriver(new URL(hubURL), capabilities);
 
     }
 
